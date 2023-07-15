@@ -1,26 +1,38 @@
 import {TbPlaylist} from 'react-icons/tb';
 import {AiOutlinePlus} from 'react-icons/ai';
+import useAuthModal from '@/hooks/useAuthModal';
+import { useUser } from '@/hooks/UseUser';
+import useUploadModal from '@/hooks/useUploadModal';
 
 const Library = () => {
+    const authModal = useAuthModal();
+    const { user } = useUser();
+
+    const uploadModal = useUploadModal();
+
     const onClick = () => {
-        //handle upload later
+        if(!user) {
+            return authModal.onOpen();
+        }    
+
+        return uploadModal.onOpen();
     }
-  return (
-    <div className='flex flex-col'>
-        <div className="flex items-center justify-between px-4 pt-4">
-            <div className="inline-flex items-center gap-x-2">
-                <TbPlaylist className='text-neutral-400' size={26} />
-                <p className='text-neutral-400 font-medium'>Your Library</p>
+    return (
+        <div className='flex flex-col'>
+            <div className="flex items-center justify-between px-4 pt-4">
+                <div className="inline-flex items-center gap-x-2">
+                    <TbPlaylist className='text-neutral-400' size={26} />
+                    <p className='text-neutral-400 font-medium'>Your Library</p>
+                </div>
+                <AiOutlinePlus 
+                    onClick={onClick}
+                    size={20}
+                    className='text-neutral-400 cursor-pointer hover:text-white transition'
+                />
             </div>
-            <AiOutlinePlus 
-                onClick={onClick}
-                size={20}
-                className='text-neutral-400 cursor-pointer hover:text-white transition'
-            />
+            <div className="flex flex-col gap-y-3 mt-4 px-3">List of Songs!</div>
         </div>
-        <div className="flex flex-col gap-y-3 mt-4 px-3">List of Songs!</div>
-    </div>
-  )
+    )
 }
 
 export default Library
