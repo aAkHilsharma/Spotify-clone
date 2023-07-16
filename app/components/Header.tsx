@@ -67,12 +67,12 @@ const Header:React.FC<HederProps> = ({
                     >
                         Logout
                     </Button>
-                    <Button 
+                    {/* <Button 
                         onClick={() => router.push('/account')}
                         className="bg-white"
                     >
                         <FaUserAlt />
-                    </Button>
+                    </Button> */}
                 </div> : 
                 <>
                     <div>
